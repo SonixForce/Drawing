@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="utf-8">
     <title>Draw!</title>
   </head>
   <body>
-    <canvas id="drawing" width="500" height="500"></canvas>
+    <canvas id="drawing" width="500" height="500" style="border:1px solid; border-color:#dd0b0b;" onmousemove="coordenadas(event)" onmouseout="limpiarCoordenadas()"></canvas>
     <p>You can draw everything you want up here!</p>
+    <p id="pargraph"></p>
     <script type="text/javascript" src="theDraw.js"></script>
   </body>
 </html>

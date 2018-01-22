@@ -12,47 +12,96 @@ var keys = {
 };
 
 //Temporal variables
-var color = "red";
-var width = 5;
+var color = "blue";
+var width = 21;
 var x = 250;
 var y = 250;
 
 document.addEventListener("keydown", drawArrows);
-document.addEventListener("mousedown", drawMouse);
+
 
 
 function drawArrows(event)
 {
-  var move = 5;
+  var move = width;
+
+  function movImpar(mov)
+  {
+    if (mov % 2 == 0)
+    {
+      mov = mov / 2;
+    }
+    else
+    {
+      mov = mov / 2 + 0.5;
+    }
+    return mov;
+  }
+
   switch (event.keyCode)
   {
     case keys.UP:
-      draw(color, width, x, y, x, y - move, paper);
-      y = y - move;
+      draw(color, width, x, y + movImpar(move), x, y - movImpar(move), paper);
+      y = y - movImpar(move);
       break;
 
     case keys.DOWN:
-      draw(color, width, x, y, x, y + move, paper);
-      y = y + move;
+      draw(color, width, x, y - movImpar(move), x, y + movImpar(move), paper);
+      y = y + movImpar(move);
       break;
 
     case keys.LEFT:
-      draw(color, width, x, y, x - move, y, paper);
-      x = x - move;
+      draw(color, width, x + movImpar(move), y, x - movImpar(move), y, paper);
+      x = x - movImpar(move);
       break;
 
     case keys.RIGHT:
-      draw(color, width, x, y, x - move, y, paper);
-      x = x + move;
+      draw(color, width, x - movImpar(move), y, x + movImpar(move), y, paper);
+      x = x + movImpar(move);
       break;
   }
 }
 
-function drawMouse(event)
+document.addEventListener("mousedown", mDown);
+document.addEventListener("mouseup", mUp);
+
+function mDown(event)
 {
 
+  var x = event.clientX;
+  var y = event.clientY;
+
+  var xF,yF;
+
+  clickDown = 1;
+
+  for (clickDown == 1; clickDown < 0; i++) {
+      draw(color, width, x,y,xF,yF,paper);
+      xF=x;
+      yF=y;
+  }
+
+  console.log(event);
 }
 
+function mUp(event)
+{
+  console.log(event);
+  clickDown = 0;
+}
+
+function coordenadas(c) //Escribir coordenadas del mouse
+{
+  var x = c.clientX;
+  var y = c.clientY;
+  var coor = "Las coordenadas son: (" + x + "," + y + ")";
+  document.getElementById("pargraph").innerHTML = coor;
+}
+
+function limpiarCoordenadas() //Borrar coordenadas del mouse cuando se sale del canvas
+{
+  document.getElementById("pargraph").innerHTML = "";
+}
 
 // Function that will draw the lines
 function draw(color, width, xIn, yIn, xFin, yFin, paper)
